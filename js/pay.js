@@ -34,6 +34,14 @@
     toastMsg._t = setTimeout(function () { toast.hidden = true; }, 8000);
   }
 
+  function showDone(title, text) {
+    document.getElementById('doneTitle').textContent = title;
+    document.getElementById('doneText').innerHTML = text;
+    formEl.hidden = true;
+    doneView.hidden = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   /* render tariff pickers */
   tariffs.forEach(function (t, i) {
     var label = document.createElement('label');
@@ -112,8 +120,20 @@
       return;
     }
 
-    toastMsg(
-      'Оплата ещё не подключена. Напишите нам в <a href="' + C.telegram + '" target="_blank" rel="noopener">Telegram</a> — вышлем ссылку на оплату.'
+    /* ЗАГЛУШКА: платёжная ссылка ещё не подключена — сохраняем заявку */
+    var msg = 'Здравствуйте! Оставляю заявку на тариф «' + t.name + '» (' + fmt(t.price) + '). ' +
+              'Пришлите, пожалуйста, ссылку на оплату.\n' +
+              'Имя: ' + name + '\nE-mail: ' + email + '\nТелефон: ' + phone +
+              (promo ? '\nПромокод: ' + promo : '');
+    localStorage.setItem('upflow_order', JSON.stringify({
+      tariff: t.id, tariffName: t.name, amount: t.price, name: name, email: email, phone: phone, at: Date.now()
+    }));
+    if (document.getElementById('doneTg')) document.getElementById('doneTg').href = C.telegram;
+    if (document.getElementById('doneWa')) document.getElementById('doneWa').href = C.whatsapp + '?text=' + encodeURIComponent(msg);
+    showDone(
+      'Заявка отправлена',
+      'Оплата сейчас в тестовом режиме. Ваша заявка на тариф «' + t.name + '» (' + fmt(t.price) + ') сохранена — ' +
+      'мы пришлём вам платёжную ссылку через Telegram или WhatsApp.'
     );
   });
 
@@ -128,10 +148,11 @@
     var tid = q.get('tariff');
     if (tid) {
       var tt = tariffs.filter(function (x) { return x.id === tid; })[0];
-      if (tt) document.getElementById('doneText').textContent =
-        'Оплата тарифа «' + tt.name + '» (' + fmt(tt.price) + ') принята. Мы свяжемся с вами в ближайшее время и откроем доступ к курсу.';
+      if (tt) showDone('Спасибо! Платёж принят',
+        'Оплата тарифа «' + tt.name + '» (' + fmt(tt.price) + ') обработана. Мы свяжемся с вами в ближайшее время и откроем доступ к курсу.');
+    } else {
+      showDone('Спасибо! Платёж принят',
+        'Оплата обработана. Мы свяжемся с вами в ближайшее время и откроем доступ к курсу.');
     }
-    formEl.hidden = true;
-    doneView.hidden = false;
   }
 })();
