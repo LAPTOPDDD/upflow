@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Оплата обучения — CG UpFlow</title>
+  <meta name="description" content="Оплата онлайн-обучения CG UpFlow: тарифы ЛАЙТ, МАКСИ, ПРЕМИУМ. Безопасная оплата картой или СБП.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-16.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/pay.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><span class="bg__glow bg__glow--1"></span><span class="bg__glow bg__glow--2"></span></div>
+
+  <header class="top">
+    <div class="container top__inner">
+      <a class="logo" href="index.html"><img src="images/logo.png" alt="CG UpFlow"><span>CG&nbsp;UpFlow</span></a>
+      <a class="back" href="index.html">← На сайт</a>
+    </div>
+  </header>
+
+  <main class="wrap container">
+    <div class="grid">
+      <aside class="info">
+        <span class="tag">Оплата обучения · ИП</span>
+        <h1>Оплата обучения в&nbsp;CG&nbsp;UpFlow</h1>
+        <p class="lead">Выберите тариф, заполните данные и перейдите к безопасной оплате. После оплаты мы свяжемся с вами и откроем доступ к курсу.</p>
+
+        <div class="order" id="orderBox">
+          <div class="order__head"><span class="order__code" id="orderCode">—</span><strong id="orderName">—</strong></div>
+          <div class="order__price" id="orderPrice">—</div>
+          <ul class="order__perks" id="orderPerks"></ul>
+        </div>
+
+        <ul class="trust">
+          <li>Безопасная оплата — данные карты вводятся на защищённой странице провайдера</li>
+          <li>Карты Visa, Mastercard, Мир и СБП</li>
+          <li>Договор оферты и чек после оплаты</li>
+          <li>Доступ к записям курса — навсегда</li>
+        </ul>
+
+        <div class="docs">
+          <a href="https://upflow.pro/offer" target="_blank" rel="noopener">Договор оферты</a>
+          <a href="https://upflow.pro/policy" target="_blank" rel="noopener">Политика конфиденциальности</a>
+        </div>
+      </aside>
+
+      <section class="paycard">
+        <form id="payForm" novalidate>
+          <h2>Форма оплаты</h2>
+          <p class="field-label">Выберите тариф</p>
+          <div class="tpicks" id="tarifs"></div>
+
+          <label class="field"><span>Имя и фамилия</span><input id="payName" type="text" placeholder="Иван Иванов" autocomplete="name"></label>
+          <label class="field"><span>E-mail для документов</span><input id="payEmail" type="email" placeholder="you@mail.ru" autocomplete="email"></label>
+          <label class="field"><span>Телефон</span><input id="payPhone" type="tel" placeholder="+7 ___ ___-__-__" autocomplete="tel"></label>
+          <label class="field"><span>Промокод (если есть)</span><input id="payPromo" type="text" placeholder="—"></label>
+
+          <label class="agree"><input id="payAgree" type="checkbox" checked><span>Я согласен с <a href="https://upflow.pro/offer" target="_blank" rel="noopener">условиями оферты</a> и политикой обработки персональных данных</span></label>
+
+          <div class="error" id="payError" hidden></div>
+          <button class="paybtn" id="payBtn" type="submit">Перейти к оплате</button>
+          <p class="secure" id="secureNote"></p>
+        </form>
+
+        <div class="done" id="doneView" hidden>
+          <div class="done__mark">✓</div>
+          <h2>Спасибо! Платёж принят</h2>
+          <p id="doneText">Оплата обработана. Мы свяжемся с вами в ближайшее время и откроем доступ к курсу.</p>
+          <a class="btn-solid" href="https://t.me/el_zhii" target="_blank" rel="noopener">Написать в Telegram</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="container">© CG UpFlow · Онлайн-обучение интерьерной визуализации в 3Ds Max + Corona Renderer · ИП</div>
+  </footer>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="js/pay-config.js"></script>
+  <script src="js/pay.js"></script>
+</body>
+</html>
